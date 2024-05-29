@@ -20,10 +20,10 @@ public class OrderService {
 	@Autowired
 	private orderRepo orderRepo;
 
-	@Autowired
-	private PayementRepo payementRepo;
-
 	
+
+	@Autowired 
+	private PayemntService payemntService;
 
 	@Transactional(
 		    propagation = Propagation.REQUIRED, // Default propagation behavior
@@ -41,7 +41,7 @@ public class OrderService {
 		validatePaymentInfo(paymentInfo);
 		orderInfo.setProductName(paymentInfo.getProductName());
 		orderRepo.save(orderInfo);
-		payementRepo.save(paymentInfo);
+		payemntService.savePayment(paymentInfo);
 		return new OrderAck("Success", paymentInfo.getAmount(), paymentInfo);
 	}
 
@@ -50,6 +50,7 @@ public class OrderService {
 
 
 /*
+ *  
  *  Propagation.REQUIRED: If a transaction exists, use it. Otherwise, start a new transaction.
 Propagation.REQUIRES_NEW: Always start a new transaction, suspending the current transaction if one exists.
 Propagation.SUPPORTS: If a transaction exists, use it. Otherwise, execute non-transactionally.
