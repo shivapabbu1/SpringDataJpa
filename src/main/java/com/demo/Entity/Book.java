@@ -4,6 +4,7 @@ package com.demo.Entity;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -20,34 +21,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employee {
+@Audited
+public class Book {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	private String loginUser;
+	private int id;
+    private String pages;
 	private String name;
 
-	private String dept;
-
-	private Double salary;
-
-	@CreatedBy
-    private String createdBy;
-	
-	@CreatedDate
-	private Date createdDate;
-
-	@LastModifiedBy
-	private String lastModifiedBy;
-
-	@LastModifiedDate
-	private LocalDateTime lastModifiedDate;
 	
 	
 }
